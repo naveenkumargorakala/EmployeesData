@@ -1,5 +1,6 @@
 package com.example.studentspring.service;
 
+import com.example.studentspring.dtopack.DTOClass;
 import com.example.studentspring.model.EmployeeModel;
 import com.example.studentspring.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements EmployeeInterface{
 
+    //make Loose coupling(independent)
     @Autowired
     EmployeeRepository repository;
 
     //Adding Employee Data
-    public EmployeeModel createEmp(EmployeeModel model) {
-        EmployeeModel employee = new EmployeeModel(model);
+    public EmployeeModel createEmp(DTOClass model) {
+        EmployeeModel employee = new DTOClass(model);
         repository.save(employee);
         return employee;
     }
@@ -44,7 +46,7 @@ public class EmployeeService {
     }
 
     //Update the Employee Data by using ID
-    public EmployeeModel updateEmployee(EmployeeModel model,int id) {
+    public EmployeeModel updateEmployee(DTOClass model,int id) {
 
         EmployeeModel employee = repository.findById(id).get();
         employee.setEmployeeName(model.getEmployeeName());
